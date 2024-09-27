@@ -3,9 +3,6 @@
  */
 package com.chatter.com.java_assignment.controller;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatter.com.java_assignment.entity.Customer;
-import com.chatter.com.java_assignment.repository.CustomerRepository;
+import com.chatter.com.java_assignment.service.CustomerService;
  
 @RestController
 public class CustomerController {
@@ -22,7 +19,7 @@ public class CustomerController {
 
 	
 	@Autowired
-	private CustomerRepository customerRepository;
+	private CustomerService customerService;
 	 
 	/**
 	 * This method used to create customer
@@ -32,20 +29,15 @@ public class CustomerController {
 	 */
 	
 	@PostMapping("/createCustomer")
-	public Customer createCustomer(@RequestBody Customer customer) {
-		Map<String, Object> map = new LinkedHashMap<String, Object>();
+	public ResponseEntity<Object> createCustomer(@RequestBody Customer customer) {
+		 
 		try {
-			System.out.println(customer);
-			customerRepository.save(customer);
-			 
-			
-		}
-		catch (Exception e){
-			map.put("status", 0);
-			map.put("message", "Customer Not Saved");
-			
-		}
-		return customer;
+			   return ResponseEntity.ok().body(customerService.saveCustomer(customer));
+		    }
+			catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+						.body("Error occured while Adding Customer");
+			}
 		 
 	 
 

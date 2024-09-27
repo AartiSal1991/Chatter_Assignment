@@ -3,90 +3,56 @@
  */
 package com.chatter.com.java_assignment.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 
- 
 @Entity
-@Table(name = "transactions")
+@Table(name="transactions")
 public class Transactions {
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@NotNull
-	private Long customerId;
-
-	@NotNull
+	@ManyToOne
+	@JoinColumn(name="customer_id")
+	private Customer customer;
+	
+	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private LocalDate transactionDate;
-
-	@NotNull
-	private double amount;
-
-	/**
-	 * @return the id
-	 */
+	private Date transactionDate;
+	
+	private Double amount;
 	public Long getId() {
 		return id;
 	}
-
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	/**
-	 * @return the customerId
-	 */
-	public Long getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
-
-	/**
-	 * @param customerId the customerId to set
-	 */
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
-
-	/**
-	 * @return the transactionDate
-	 */
-	public LocalDate getTransactionDate() {
+	public Date getTransactionDate() {
 		return transactionDate;
 	}
-
-	/**
-	 * @param transactionDate the transactionDate to set
-	 */
-	public void setTransactionDate(LocalDate transactionDate) {
+	public void setTransactionDate(Date transactionDate) {
 		this.transactionDate = transactionDate;
 	}
-
-	/**
-	 * @return the amount
-	 */
-	public double getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
-
-	/**
-	 * @param amount the amount to set
-	 */
-	public void setAmount(double amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
-
+	
+	
 }
+ 
