@@ -10,4 +10,5 @@ public interface CustomerService {
 	 */
 	public int addCustomer(Customer customer);
 	Customer saveCustomer(Customer cust);
+	Customer getCustomerById(Long custId);
 }

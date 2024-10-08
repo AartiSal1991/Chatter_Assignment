@@ -29,5 +29,13 @@ public class CustomerServiceImplementation implements CustomerService{
 		customerRepository.save(cust);
 		return cust;
 	}
+	
+	
+	//Fetching Customers by Id
+		@Override
+		public Customer getCustomerById(Long custId) {
+			    Customer cust= customerRepository.findById(custId).orElseThrow();
+				return cust;
+		}
 
 }

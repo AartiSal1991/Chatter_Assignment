@@ -1,6 +1,8 @@
 package com.chatter.com.java_assignment.controller;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -83,7 +85,11 @@ public class CustomerRewardsTransactionController {
 					throw new IllegalArgumentException("Please provide Valid year Month YYYY-MM eg.2024-07");
 				}
 				   Map<String, Integer> result = new HashMap<String, Integer>();
-				   result.put(custId+":"+yearMonth, transactionRewardPointService.calculateMonthlyRewardPointsByCustomerId(custId,yearMonth));
+				   Date date = new Date();
+			      
+			       SimpleDateFormat month = new SimpleDateFormat("MMM");
+			       
+				   result.put(month.format(yearMonth), transactionRewardPointService.calculateMonthlyRewardPointsByCustomerId(custId,yearMonth));
 				   return ResponseEntity.ok().body(result);
 			    }
 			    catch (NumberFormatException e) {
